@@ -74,16 +74,19 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {
-    console.log("Player state has changed");
+    console.log("Player state changed");
 }
 
 function fetchVideoDetails(videoId) {
     return gapi.client.youtube.videos.list({
-        "part": ["snippet", "statistics"],
+        "part": ["snippet,statistics"],
         "id": videoId
     })
-    .then(response => displayVideoDetails(response.result.items[0]),
-          err => handleError("Fetch video details error", err));
+    .then(response => {
+        const videoData = response.result.items[0];
+        updateVideoInfo(videoData);
+    },
+    err => handleError("Error fetching video details", err));
 }
 
 function updateVideoInfo(videoData) {
@@ -96,17 +99,72 @@ function updateVideoInfo(videoData) {
     updateSocialShareButtons(videoData.id);
 }
 
+function updateSocialShareButtons(videoId) {
+    const shareButtons = document.querySelectorAll('.share-btn');
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
-function displayVideoDetails(videoData) {
-    updateVideoInfo(videoData);
+    shareButtons.forEach(button => {
+        const platform = button.getAttribute('data-platform');
+        let shareUrl;
+
+        switch (platform) {
+            case 'twitter':
+                shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(videoUrl)}`;
+                break;
+            case 'facebook':
+                shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(videoUrl)}`;
+                break;
+            case 'reddit':
+                shareUrl = `https://reddit.com/submit?url=${encodeURIComponent(videoUrl)}`;
+                break;
+        }
+
+        button.addEventListener('click', () => {
+            window.open(shareUrl, '_blank');
+        });
+    });
 }
 
 function fetchRecommendations(videoId) {
+    showLoading();
     return gapi.client.youtube.search.list({
         "part": ["snippet"],
-        "maxResults": 10,
-        "relatedToVideoId": videoId
+        "type": "video",
+        "relatedToVideoId": videoId,
+        "maxResults": 10
     })
-    .then(response => displayRecommendations(response.result.items),
-          err => handleError("Fetch recommendations error", err));
+    .then(response => {
+        hideLoading();
+        displayRecommendations(response.result.items);
+        initializeUI();
+    },
+    err => handleError("Error fetching recommendations", err));
+}
+
+
+
+function displayRecommendations(items) {
+    const recommendationList = document.getElementById('recommendation-list');
+    recommendationList.innerHTML = '';
+    items.forEach(item => {
+        const recommendationItem = createRecommendationItem(item);
+        recommendationList.appendChild(recommendationItem);
+    });
+}
+
+function createRecommendationItem(item) {
+    const recommendationItem = document.createElement('div');
+    recommendationItem.classList.add('recommendation-item');
+    recommendationItem.innerHTML = `
+        <img src="${item.snippet.thumbnails.medium.url}" alt="${item.snippet.title}">
+        <h4>${item.snippet.title}</h4>
+    `;
+    recommendationItem.addEventListener('click', () => loadVideo(item.id.videoId));
+    return recommendationItem;
+}
+
+function showLoading() {
+    const loadingElement = document.createElement('div');
+    loadingElement.classList.add('loading');
+    document.body.appendChild(loadingElement);
 }
