@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoVortex</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+   
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-vortex"></i>
+            <h1>VideoVortex</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Explore the video universe...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+    <main>
+        <div id="video-container">
+            <div id="player"></div>
+            <div id="video-info">
+                <h2 id="video-title"></h2>
+                <p id="video-description"></p>
+                <div id="social-share">
+                    <button class="share-btn" data-platform="twitter"><i class="fab fa-twitter"></i> Tweet</button>
+                    <button class="share-btn" data-platform="facebook"><i class="fab fa-facebook-f"></i> Share</button>
+                    <button class="share-btn" data-platform="reddit"><i class="fab fa-reddit-alien"></i> Reddit</button>
+                </div>
+            </div>
+        </div>
+        <div id="video-list"></div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>
