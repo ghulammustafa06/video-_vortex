@@ -87,3 +87,54 @@ h1 {
 #search-button:hover {
     color: var(--primary-color);
 }
+
+#search-button:focus {
+    outline: none;
+}
+
+#search-button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+#search-button i {
+    font-size: 1.5rem;
+}
+
+#search-button span {
+    display: none;
+}
+
+#search-input:focus + #search-button span {
+    display: block;
+}
+
+#search-input:focus + #search-button i {
+    display: none;
+}
+
+main {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+#video-container {
+    flex: 2;
+}
+
+#player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--dark-surface);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+#video-info {
+    margin-top: 2rem;
+    background-color: var(--dark-surface);
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}

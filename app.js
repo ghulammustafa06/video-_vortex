@@ -85,3 +85,28 @@ function fetchVideoDetails(videoId) {
     .then(response => displayVideoDetails(response.result.items[0]),
           err => handleError("Fetch video details error", err));
 }
+
+function updateVideoInfo(videoData) {
+    const videoTitle = document.getElementById('video-title');
+    const videoDescription = document.getElementById('video-description');
+    
+    videoTitle.textContent = videoData.snippet.title;
+    videoDescription.textContent = videoData.snippet.description.slice(0, 200) + '...';
+
+    updateSocialShareButtons(videoData.id);
+}
+
+
+function displayVideoDetails(videoData) {
+    updateVideoInfo(videoData);
+}
+
+function fetchRecommendations(videoId) {
+    return gapi.client.youtube.search.list({
+        "part": ["snippet"],
+        "maxResults": 10,
+        "relatedToVideoId": videoId
+    })
+    .then(response => displayRecommendations(response.result.items),
+          err => handleError("Fetch recommendations error", err));
+}
