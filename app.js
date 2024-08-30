@@ -168,3 +168,23 @@ function showLoading() {
     loadingElement.classList.add('loading');
     document.body.appendChild(loadingElement);
 }
+
+function hideLoading() {
+    const loadingElement = document.querySelector('.loading');
+    loadingElement.remove();
+}
+
+function handleError(message, error) {
+    console.error(message, error);
+}
+
+function initializeUI() {
+    const videoSection = document.getElementById('video-section');
+    const recommendationSection = document.getElementById('recommendation-section');
+    videoSection.classList.remove('hidden');
+    recommendationSection.classList.remove('hidden');
+} 
+
+function init() {
+    gapi.load("client", loadClient);
+}
