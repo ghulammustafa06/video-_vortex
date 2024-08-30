@@ -294,6 +294,7 @@ main {
     background: var(--secondary-color);
 }
 
+
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -312,5 +313,119 @@ main {
 
     #video-list {
         max-height: none;
+    }
+
+    #recommendation-list {
+        flex-wrap: nowrap;
+    }
+
+    .recommendation-item {
+        flex: 0 0 150px;
+    }
+
+    #video-description {
+        max-height: 200px;
+    }
+
+    #video-info {
+        padding: 1rem;
+    }
+
+    #video-title {
+        font-size: 1.2rem;
+    }
+
+    #video-description {
+        font-size: 0.9rem;
+    }
+
+    #social-share {
+        flex-wrap: wrap;
+    }
+
+    .share-btn {
+        margin-top: 0.5rem;
+    }
+
+    .share-btn[data-platform="twitter"] {
+        background-color: #1da1f2;
+    }
+
+    .share-btn[data-platform="facebook"] {
+        background-color: #4267B2;
+    }
+
+    .share-btn[data-platform="reddit"] {
+        background-color: #ff4500;
+    }
+
+    #recommendations h3 {
+        font-size: 1.2rem;
+    }
+
+    #recommendation-list {
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .recommendation-item {
+        flex: 0 0 120px;
+    }
+
+    #video-description {
+        max-height: 140px;
+    }
+
+    #video-info {
+        padding: 0.75rem;
+    }
+
+    #video-title {
+        font-size: 0.8rem;
+    }
+
+    #video-description {
+        font-size: 0.6rem;
+    }
+
+    #social-share {
+        flex-wrap: wrap;
+    }
+
+    .share-btn {
+        margin-top: 0.4rem;
+    }
+
+    .share-btn[data-platform="twitter"] {
+        background-color: #1da1f2;
+    }
+
+    .share-btn[data-platform="facebook"] {
+        background-color: #4267B2;
+    }
+
+    .share-btn[data-platform="reddit"] {
+        background-color: #ff4500;
+    }
+
+    #recommendations h3 {
+        font-size: 0.8rem;
+    }
+
+    #recommendation-list {
+        padding: 1rem 0.5rem;
+    }
+
+    .recommendation-item h4 {
+        font-size: 0.7rem;
+    }
+
+    .video-item-info h3 {
+        font-size: 0.8rem;
+    }
+
+    .video-item-info p {
+        font-size: 0.6rem;
     }
 }
