@@ -169,26 +169,6 @@ function showLoading() {
 
 function hideLoading() {
     const loadingElement = document.querySelector('.loading');
-    loadingElement.remove();
-}
-
-function handleError(message, error) {
-    console.error(message, error);
-}
-
-function initializeUI() {
-    const videoSection = document.getElementById('video-section');
-    const recommendationSection = document.getElementById('recommendation-section');
-    videoSection.classList.remove('hidden');
-    recommendationSection.classList.remove('hidden');
-} 
-
-function init() {
-    gapi.load("client", loadClient);
-}
-
-function hideLoading() {
-    const loadingElement = document.querySelector('.loading');
     if (loadingElement) {
         loadingElement.remove();
     }
@@ -200,10 +180,54 @@ function handleError(message, error) {
     showErrorMessage(`${message}. Please try again.`);
 }
 
-
 function showErrorMessage(message) {
-    const errorElement = document.createElement('div');
-    errorElement.classList.add('error');
-    errorElement.textContent = message;
-    document.body.appendChild(errorElement);
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    document.body.appendChild(errorDiv);
+    setTimeout(() => {
+        errorDiv.remove();
+    }, 5000);
 }
+
+function initializeUI() {
+    const videoItems = document.querySelectorAll('.video-item');
+    const recommendationItems = document.querySelectorAll('.recommendation-item');
+
+    const addHoverEffect = (item) => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'scale(1.05)';
+            item.style.transition = 'transform 0.3s ease-in-out';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'scale(1)';
+        });
+    };
+
+    videoItems.forEach(addHoverEffect);
+    recommendationItems.forEach(addHoverEffect);
+
+    const mainContent = document.querySelector('main');
+    mainContent.style.opacity = '0';
+    mainContent.style.transition = 'opacity 0.5s ease-in-out';
+    setTimeout(() => {
+        mainContent.style.opacity = '1';
+    }, 100);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    gapi.load("client", loadClient);
+
+    const searchButton = document.getElementById('search-button');
+    const searchInput = document.getElementById('search-input');
+
+    searchButton.addEventListener('click', () => {
+        execute(searchInput.value);
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            execute(searchInput.value);
+        }
+    });
+});
