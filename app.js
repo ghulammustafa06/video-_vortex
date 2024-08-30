@@ -1,3 +1,4 @@
+
 const API_KEY = 'key';
 
 let player;
@@ -72,6 +73,7 @@ function loadVideo(videoId) {
 function onPlayerReady(event) {
     console.log("Player is ready");
 }
+
 
 function onPlayerStateChange(event) {
     console.log("Player state changed");

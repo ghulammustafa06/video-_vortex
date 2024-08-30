@@ -88,30 +88,6 @@ h1 {
     color: var(--primary-color);
 }
 
-#search-button:focus {
-    outline: none;
-}
-
-#search-button:active {
-    transform: translateY(-50%) scale(0.9);
-}
-
-#search-button i {
-    font-size: 1.5rem;
-}
-
-#search-button span {
-    display: none;
-}
-
-#search-input:focus + #search-button span {
-    display: block;
-}
-
-#search-input:focus + #search-button i {
-    display: none;
-}
-
 main {
     display: flex;
     padding: 2rem;
@@ -139,6 +115,21 @@ main {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
+#video-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color);
+}
+
+#video-description {
+    font-size: 1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    max-height: 100px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
 
 #video-description::-webkit-scrollbar {
     width: 5px;
@@ -257,4 +248,69 @@ main {
     overflow-x: auto;
     gap: 1rem;
     padding: 1rem 0;
+}
+
+
+.recommendation-item {
+    flex: 0 0 200px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.recommendation-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.recommendation-item img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.recommendation-item h4 {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    color: var(--secondary-color);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    main {
+        flex-direction: column;
+    }
+
+    #video-list {
+        max-height: none;
+    }
 }
