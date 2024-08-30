@@ -141,8 +141,6 @@ function fetchRecommendations(videoId) {
     err => handleError("Error fetching recommendations", err));
 }
 
-
-
 function displayRecommendations(items) {
     const recommendationList = document.getElementById('recommendation-list');
     recommendationList.innerHTML = '';
@@ -187,4 +185,25 @@ function initializeUI() {
 
 function init() {
     gapi.load("client", loadClient);
+}
+
+function hideLoading() {
+    const loadingElement = document.querySelector('.loading');
+    if (loadingElement) {
+        loadingElement.remove();
+    }
+}
+
+function handleError(message, error) {
+    console.error(message, error);
+    hideLoading();
+    showErrorMessage(`${message}. Please try again.`);
+}
+
+
+function showErrorMessage(message) {
+    const errorElement = document.createElement('div');
+    errorElement.classList.add('error');
+    errorElement.textContent = message;
+    document.body.appendChild(errorElement);
 }
